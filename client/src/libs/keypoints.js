@@ -1,7 +1,7 @@
 import paper from "paper";
 
 export class Keypoints extends paper.Group {
-  constructor(edges, args) {
+  constructor(edges, labels, args) {
     super();
     args = args || {};
 
@@ -10,6 +10,7 @@ export class Keypoints extends paper.Group {
     this._lines = {};
     this._labelled = {};
     this._keypoints = [];
+    this.labels = labels;
 
     this.strokeColor = args.strokeColor || "red";
     this.lineWidth = args.strokeWidth || 4;
@@ -354,9 +355,9 @@ export class Keypoint extends paper.Point {
   }
 
   _draw() {
-    let storkeWidth = 1;
+    let strokeColor = this.color;
     if (this.path !== null) {
-      storkeWidth = this.path.strokeWidth;
+      strokeColor = this.path.strokeColor;
       this.path.remove();
     }
 
@@ -369,8 +370,8 @@ export class Keypoint extends paper.Point {
     this.path.onClick = this.onClick;
 
     this.path.indicator = true;
-    this.path.strokeColor = this.color;
-    this.path.strokeWidth = storkeWidth;
+    this.path.strokeColor = strokeColor;
+    this.path.strokeWidth = this.radius * 0.4;
     this.path.visible = this.visible;
     this.path.keypoint = this;
     this.path.keypoints = this.keypoints;

@@ -45,6 +45,18 @@ class AnonymousUser(AnonymousUserMixin):
             "is_admin": self.is_admin,
             "anonymous": True
         }
+    
+    def can_edit(self, model):
+        return True
+    
+    def can_view(self, model):
+        return True
+    
+    def can_download(self, model):
+        return True
+    
+    def can_delete(self, model):
+        return True
 
 
 login_manager.anonymous_user = AnonymousUser
